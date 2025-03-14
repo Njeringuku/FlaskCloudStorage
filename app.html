@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cloud Storage Simulation</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f0f2f5; padding: 20px; }
+        .container { max-width: 600px; margin: 50px auto; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
+        h1 { text-align: center; }
+        form { margin-bottom: 15px; }
+        .file-list { list-style: none; padding: 0; }
+        .file-item { background: #e3e3e3; margin: 5px 0; padding: 10px; border-radius: 6px; display: flex; justify-content: space-between; }
+        button { background-color: #4CAF50; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+        .delete-btn { background-color: #f44336; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cloud Storage System</h1>
+        
+        <!-- Upload Form -->
+        <form action="/upload" method="POST">
+            <input type="text" name="filename" placeholder="Enter filename" required>
+            <button type="submit">Upload</button>
+        </form>
+
+        <!-- File List -->
+        <ul class="file-list">
+            {% for file in files %}
+            <li class="file-item">
+                {{ file }}
+                <div>
+                    <form action="/update/{{ file }}" method="POST" style="display: inline;">
+                        <input type="text" name="new_filename" placeholder="New filename" required>
+                        <button type="submit">Update</button>
+                    </form>
+                    <form action="/delete/{{ file }}" method="POST" style="display: inline;">
+                        <button type="submit" class="delete-btn">Delete</button>
+                    </form>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
